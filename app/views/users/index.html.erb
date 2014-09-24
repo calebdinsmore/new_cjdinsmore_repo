@@ -1,4 +1,7 @@
 <h1>List of users</h1>
 
+<% flash.each do |type, message| %>
+<p class="ALERT-<%= type %>"> <%= message %></p>
+<% end %>
 <p><%= pluralize(@users.count, 'user') %></p>
 <ol><%= render @users %></ol>

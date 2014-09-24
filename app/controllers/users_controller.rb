@@ -4,11 +4,11 @@ class UsersController < ApplicationController
     end
 
     def new
-	@user = User.new
+	    @user = User.new
     end
 
     def create
-	@user = User.new(params.require(:user).permit(:name, :email, :password))
+        @user = User.new(user_params)
 	if @user.save
 	    flash[:success] = "Welcome to the site, #{@user.name}"
 	    redirect_to @user
@@ -23,5 +23,36 @@ class UsersController < ApplicationController
     rescue
 	flash[:danger] = "Unable to find user"
 	redirect_to users_path
+    end
+  
+    def edit
+        @user = User.find(params[:id])
+    rescue
+    	flash[:danger] = "Unable to find user"
+    	redirect_to users_path
+    end
+    
+    def update
+        @user = User.find(params[:id])
+        if @user.update(user_params)
+            flash[:success] = "Your profile has been modified"
+            redirect_to @user
+        else
+            flash[:danger] = "Unable to update profile"
+            render "edit"
+        end
+    end
+    
+    def destroy
+        @user = User.find(params[:id])
+        @user.destroy
+        flash[:success] = "#{@user.name} removed from the site"
+        redirect_to users_path
+    end
+    
+    private 
+    
+    def user_params
+        params.require(:user).permit(:name, :email, :password)
     end
 end
