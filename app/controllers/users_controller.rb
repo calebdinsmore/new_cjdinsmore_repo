@@ -10,11 +10,7 @@ class UsersController < ApplicationController
     end
 
     def create
-<<<<<<< HEAD
-        @user = User.new(user_params)
-=======
 	@user = User.new(user_params)
->>>>>>> ef60c24e0794212e4c4adff421f0c59dcc26805b
 	if @user.save
 	    flash[:success] = "Welcome to the site, #{@user.name}"
 	    redirect_to @user
@@ -30,7 +26,6 @@ class UsersController < ApplicationController
 	flash[:danger] = "Unable to find user"
 	redirect_to users_path
     end
-<<<<<<< HEAD
   
     def edit
         @user = User.find(params[:id])
@@ -60,18 +55,7 @@ class UsersController < ApplicationController
     private 
     
     def user_params
-        params.require(:user).permit(:name, :email, :password)
-    end
-end
-=======
-
-    def edit
-    end
-
-    private
-
-    def user_params
-	params.require(:user).permit(:name, :email, :password, :password_confirmation)
+        params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
     def ensure_user_logged_in
@@ -85,4 +69,3 @@ end
 	redirect_to users_path
     end
 end
->>>>>>> ef60c24e0794212e4c4adff421f0c59dcc26805b
